@@ -1,6 +1,6 @@
 # Flexi Pages Widget
 
- * Contributors: SriniG
+ * Contributors: SriniG, [jbuchbinder](https://github.com/jbuchbinder)
  * Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8110402
  * Tags: pages, subpages, menu, hierarchy, sidebar, widget, navigation
  * Requires at least: 2.7
