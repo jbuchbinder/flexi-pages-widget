@@ -3,7 +3,7 @@
 Plugin Name: Flexi Pages Widget
 Plugin URI: http://srinig.com/wordpress/plugins/flexi-pages/
 Description: A highly configurable WordPress sidebar widget to list pages and sub-pages. User friendly widget control comes with various options. 
-Version: 1.6.13-modified
+Version: 1.6.13.1-modified
 Author: Srini G / @jbuchbinder
 Author URI: http://srinig.com/wordpress
 License: GPL2
@@ -34,6 +34,8 @@ function flexipages_init()
 	if(function_exists('load_plugin_textdomain'))
 		load_plugin_textdomain('flexipages', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
+	// DEBUGGING:
+	//openlog("wordpress", LOG_PID | LOG_PERROR, LOG_LOCAL0);
 
 	function flexipages_options_default()
 	{
@@ -137,6 +139,7 @@ function flexipages_init()
 		// Current page field
 		if (function_exists('get_field')) {
 			$current_page_field = get_field($options['match_custom_field']);
+			//syslog(LOG_INFO, "current_page_field = " . $current_page_field);
 		}
 		
 		extract($options);
@@ -182,8 +185,11 @@ function flexipages_init()
 
 				// Check for page category match
 				if (function_exists('get_field')) {
-					if (!empty($options['match_custom_field']) && $custom_page_field != get_field($options['match_custom_field'], $page->ID))
+					//syslog(LOG_INFO, "page ID = " . $page->ID . ", field value = " . get_field($options['match_custom_field'], $page->ID) . ", match_custom_field = " . $options['match_custom_field'] . " ( matching against " . $current_page_field . " )" );
+					if (!empty($options['match_custom_field']) && $current_page_field != get_field($options['match_custom_field'], $page->ID)) {
+						//syslog(LOG_INFO, "Skipping page ID " . $page->ID);
 						continue;
+					}
 				}
 					
 				$children = array();
